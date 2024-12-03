@@ -11,24 +11,24 @@ const corsOptions = {
   credentials: true 
 };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors())
 app.use(express.json());
 
 
 
 
 
-app.use(session({
-  secret: '1e3w7s8ab9sevs', 
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false } 
-}));
+// app.use(session({
+//   secret: '1e3w7s8ab9sevs', 
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { secure: false } 
+// }));
 
 app.use('/api/products', productRoutes);
 app.use('/api/cart' , cartRoutes);
 app.use('/api/users', userRoutes);
-
 
 app.get('/profile', (req, res) => {
   if (req.session.existingUser) {

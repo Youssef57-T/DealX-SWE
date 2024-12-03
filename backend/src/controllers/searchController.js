@@ -1,4 +1,4 @@
-import Product from '../models/products.js'; 
+import Product from '../models/ProductCardModel.js'; 
 import { Op } from 'sequelize'; 
 
 const searchProducts = async (req, res) => {
