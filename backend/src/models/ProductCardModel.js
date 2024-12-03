@@ -32,7 +32,7 @@ const Product = sequelize.define('products', {
         allowNull: false,
     },
 }, {
-    timestamps: false, // Disable automatic `createdAt` and `updatedAt` fields
+    timestamps: false, 
 });
 
 export default Product ; 

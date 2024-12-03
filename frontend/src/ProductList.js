@@ -15,7 +15,7 @@ const fetchProducts = async () => {
 
     const response = await axios.get('http://localhost:5000/api/products');
 
-    setProducts(response.data);          //this function sets a variable called products to the response coming from the backend(json)
+    setProducts(response.data);          
     
 
     } catch (error) {
@@ -25,37 +25,6 @@ const fetchProducts = async () => {
 
 fetchProducts();
 }, []);
-
-
-// const handleSearchChange = (e) => {
-//     setSearchQuery(e.target.value);
-//   };
-
-//   // Filter and sort products based on the search query
-// const filteredProducts = products
-// .filter((product) =>
-//     product.name.toLowerCase().includes(searchQuery.toLowerCase())
-// )
-// .sort((a, b) => {
-//     // Example sorting: prioritize products with names starting with the search query
-//     const aStartsWith = a.name.toLowerCase().startsWith(searchQuery.toLowerCase());
-//     const bStartsWith = b.name.toLowerCase().startsWith(searchQuery.toLowerCase());
-
-//     if (aStartsWith && !bStartsWith) return -1; // `a` comes first
-//     if (!aStartsWith && bStartsWith) return 1;  // `b` comes first
-
-//     // If both or neither start with the query, sort alphabetically
-//     return a.name.localeCompare(b.name);
-// });
-
-
-
-
-// const handleViewProduct = (productId) => {
-// console.log(`Navigate to product ${productId}`);
-// // Example: Use React Router to navigate
-// // navigate(`/product/${productId}`);
-// };
 
 
 return (

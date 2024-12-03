@@ -7,7 +7,6 @@ import MainPage from './Main_User_Page';
 import SearchResults from './results_page';
 import Product from './ProductPage';
 import CartPage from './Cart';
-// import ProductList from './ProductList';
 import ProfilePage from './ProfilePage';
 
 const App = () => {

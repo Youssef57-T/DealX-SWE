@@ -1,9 +1,8 @@
 import express from 'express';
-import User from '../models/User.js'; // Ensure the User model path is correct
+import User from '../models/user.js'; 
 
 const router = express.Router();
 
-// Fetch a user profile by ID
 router.get('/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {
@@ -19,7 +18,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Update a user profile by ID
 router.put('/:id', async (req, res) => {
   const { username, email, full_name, address, phone_number } = req.body;
 
@@ -40,7 +38,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a user profile by ID
 router.delete('/:id', async (req, res) => {
   try {
     const deleted = await User.destroy({

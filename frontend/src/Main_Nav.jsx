@@ -8,12 +8,10 @@ function MainNav() {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
 
-    // Handle change of search query
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
 
-    // Optionally, handle search submit or search logic here
     const handleSearchSubmit = (event) => {
         event.preventDefault();
         console.log("Search query:", searchQuery);
@@ -59,7 +57,6 @@ function MainNav() {
                         <li><a href="#deals">Deals</a></li>
                     </ul>
 
-                    {/* Search Bar Section */}
                     <div className="search-bar">
                         <form onSubmit={handleSearchSubmit}>
                             <input
@@ -76,7 +73,7 @@ function MainNav() {
 
                     <div className="nav-icons">
                         <a href="#cart"><i className="fa fa-shopping-cart"></i></a>
-                        <a href="#profile"><i className="fa fa-user"></i></a>
+                        <a ><NavLink to="/profile"><i className="fa fa-user"></i> </NavLink></a>
                     </div>
                 </nav>
                 <hr />

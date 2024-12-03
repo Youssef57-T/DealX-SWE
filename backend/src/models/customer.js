@@ -29,8 +29,8 @@ const Customer = sequelize.define('Customer', {
     allowNull: false,
   }
 }, {
-  tableName: 'Customer', // Explicitly map to the Customer table
-  timestamps: false,  // Disable timestamps (if you don't want created_at/updated_at columns)
+  tableName: 'Customer', 
+  timestamps: false,  
 });
 
 export default Customer;

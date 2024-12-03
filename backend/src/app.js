@@ -1,27 +1,42 @@
 import express from 'express';
 import cors from 'cors';
+import session from 'express-session';
 import {productRoutes, cartRoutes} from './routes/productRoutes.js';
 import {userRoutes} from './routes/userRoutes.js'
 const app = express();
 
-// Middleware
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000', 
+  credentials: true 
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 
-// Routes
+
+
+
+app.use(session({
+  secret: '1e3w7s8ab9sevs', 
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } 
+}));
 
 app.use('/api/products', productRoutes);
 app.use('/api/cart' , cartRoutes);
 app.use('/api/users', userRoutes);
 
-// Test Route
 
-app.get('/', (req, res) => {
-  res.send('Hello, the backend is running!');
+app.get('/profile', (req, res) => {
+  if (req.session.existingUser) {
+    res.status(200).json({ existingUser: req.session.existingUser });
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
 });
 
-// Export the app
 
 export default app;

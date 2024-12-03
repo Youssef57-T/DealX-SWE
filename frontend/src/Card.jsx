@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // To handle navigation
-import axios from 'axios'; // For API calls
+import { useNavigate } from 'react-router-dom'; 
+import axios from 'axios';
 
 function Card({ product }) {
-  const [inCart, setInCart] = useState(false); // State to track cart status
-  const [inWishlist, setInWishlist] = useState(false); // State to track wishlist status
-  const navigate = useNavigate(); // React Router hook for navigation
-  // Handle adding to cart
+  const [inCart, setInCart] = useState(false); 
+  const [inWishlist, setInWishlist] = useState(false);
+  const navigate = useNavigate();
+
   const handleAddToCart = async () => {
       try {
         if (!inCart) {
@@ -16,12 +16,12 @@ function Card({ product }) {
             quantity: product.stock_quantity,     
             cart_id: 123,      
           };
-          // API call to add product to cart
+
           await axios.post(`http://localhost:5000/api/cart/${product.product_id}` ,requestData);
           setInCart(true);
           alert('Product added to cart!');
         } else {
-          // Navigate to cart if already in cart
+
           navigate('/cart');
         }
     } catch (error) {
@@ -29,24 +29,23 @@ function Card({ product }) {
     }
   };
 
-  // Handle adding to wishlist
+
   const handleAddToWishlist = async () => {
     try {
       if (!inWishlist) {
-        await axios.post('/api/wishlist', { productId: product.id }); // API call to add product to wishlist
+        await axios.post('/api/wishlist', { productId: product.id });
         setInWishlist(true);
         alert('Product added to wishlist!');
       } else {
-        navigate('/wishlist'); // Navigate to wishlist if already in wishlist
+        navigate('/wishlist'); 
       }
     } catch (error) {
       console.error('Error adding to wishlist:', error);
     }
   };
 
-  // Navigate to product details page
   const handleCardClick = (product) => {
-    navigate(`/product` , {state : {product}}); // Assumes a route like /product/:id exists
+    navigate(`/product` , {state : {product}});
   };
 
   return (
@@ -62,7 +61,7 @@ function Card({ product }) {
           <button
             className="add-to-cart"
             onClick={(e) => {
-              e.stopPropagation(); // Prevent triggering card click
+              e.stopPropagation();
               handleAddToCart();
             }}
           > <div className="fa fa-shopping-cart"></div>
