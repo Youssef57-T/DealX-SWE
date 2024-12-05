@@ -19,7 +19,7 @@ const { product } = location.state || {};
 
 const handleAddToCart = async () => {
 try {
-    if (!inCart) {
+    if (!inCart) {3
 
     const requestData = {
     

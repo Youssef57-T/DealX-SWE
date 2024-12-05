@@ -19,24 +19,24 @@ app.use(express.json());
 
 
 
-// app.use(session({
-//   secret: '1e3w7s8ab9sevs', 
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: { secure: false } 
-// }));
+app.use(session({
+  secret: '1e3w7s8ab9sevs', 
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } 
+}));
 
 app.use('/api/products', productRoutes);
 app.use('/api/cart' , cartRoutes);
 app.use('/api/users', userRoutes);
 
-// app.get('/profile', (req, res) => {
-//   if (req.session.existingUser) {
-//     res.status(200).json({ existingUser: req.session.existingUser });
-//   } else {
-//     res.status(401).json({ message: 'Unauthorized' });
-//   }
-// });
+app.get('/profile', (req, res) => {
+  if (req.session.existingUser) {
+    res.status(200).json({ existingUser: req.session.existingUser });
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+});
 
 
 export default app;
