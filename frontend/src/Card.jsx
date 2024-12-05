@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 
+
 function Card({ product }) {
   const [inCart, setInCart] = useState(false); 
   const [inWishlist, setInWishlist] = useState(false);
@@ -49,7 +50,7 @@ function Card({ product }) {
   };
 
   return (
-    <div className="product-card" onClick={() => handleCardClick(product)}>
+    <div className="product-card " onClick={() => handleCardClick(product)}>
       <div className="card-image">
         <img src={product.image_url} alt="Product Image" />
       </div>
@@ -66,15 +67,15 @@ function Card({ product }) {
             }}
           > <div className="fa fa-shopping-cart"></div>
          </button>
-          {/* <button
+          <button
             className="add-to-wishlist"
             onClick={(e) => {
               e.stopPropagation(); // Prevent triggering card click
               handleAddToWishlist();
             }}
           >
-            {inWishlist ? 'View Wishlist' : 'Add to Wishlist'}
-          </button> */}
+            <div className="fas fa-heart"></div>
+          </button>
         </div>
       </div>
     </div>

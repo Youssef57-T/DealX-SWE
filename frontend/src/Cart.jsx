@@ -12,12 +12,13 @@ const marketplaces = [
 { name: 'another' },
 ];
 
+
 const products = [
 {
 name: 'Product 1',
 quantity: 1,
 price: 150,
-image: 'path/to/product-image.jpg', // Replace with actual image path
+image: 'path/to/product-image.jpg',
 },
 ];
 
@@ -30,7 +31,7 @@ return (
     <h1>Your Cart : 10 items</h1>
 
     <div className="cart-content">
-    {/* Product List */}
+
     <div className="cart-marketplaces">
         {marketplaces.map((marketplace) => (
         <div className="marketplace" key={marketplace.name}>
@@ -49,7 +50,7 @@ return (
         ))}
     </div>
 
-    {/* Summary */}
+
     <div className="cart-summary">
         <h3>subtotal : 50 items</h3>
         <p>$ 1500</p>

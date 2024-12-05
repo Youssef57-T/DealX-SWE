@@ -12,10 +12,10 @@ const navigate = useNavigate();
 useEffect(() => {
     const fetchProfile = async () => {
     try {
-    const response = await axios.get('http://localhost:5000/profile', { withCredentials: true });
+    const response = await axios.get('http://localhost:5000/profile');
     console.log(response);
-    setProfile(response.data.existingUser); 
-    setFormData(response.data.existingUser); 
+    setProfile(response.data); 
+    setFormData(response.data); 
     } catch (err) {
     if (err.response?.status === 401) {
         setError('Unauthorized: Please log in.');
@@ -108,7 +108,7 @@ return (
             >
             Delete Profile
             </button>
-            
+
         </div>
         </div>
     ) : (

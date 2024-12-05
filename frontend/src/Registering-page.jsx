@@ -17,7 +17,7 @@ try {
     });
 
     if (response.status === 200) {
-        navigate('/mainUser', { state: { user: response.data } });
+        navigate('/mainUser');
     }
 } catch (error) {
     console.error('Login failed:', error);

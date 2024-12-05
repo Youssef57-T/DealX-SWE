@@ -19,15 +19,15 @@ export const getUser = async (req, res) => {
     console.log(`Query execution time: ${end - start}ms`);
 
     if (existingUser) {
-      req.session.existingUser = {
-        id: existingUser.id,
-        username: existingUser.username,
-        email: existingUser.email,
-        address: existingUser.address,
-        phone_number: existingUser.phone_number,
-        full_name: existingUser.full_name,
-        type: existingUser.type,
-      };
+      // req.session.existingUser = {
+      //   id: existingUser.id,
+      //   username: existingUser.username,
+      //   email: existingUser.email,
+      //   address: existingUser.address,
+      //   phone_number: existingUser.phone_number,
+      //   full_name: existingUser.full_name,
+      //   type: existingUser.type,
+      // };
 
       console.log('User found:', existingUser);
       

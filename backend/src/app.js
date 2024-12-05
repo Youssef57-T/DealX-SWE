@@ -6,10 +6,10 @@ import {userRoutes} from './routes/userRoutes.js'
 const app = express();
 
 
-const corsOptions = {
-  origin: 'http://localhost:3000', 
-  credentials: true 
-};
+// const corsOptions = {
+//   origin: 'http://localhost:3000', 
+//   credentials: true 
+// };
 
 // app.use(cors(corsOptions));
 app.use(cors())
@@ -30,13 +30,13 @@ app.use('/api/products', productRoutes);
 app.use('/api/cart' , cartRoutes);
 app.use('/api/users', userRoutes);
 
-app.get('/profile', (req, res) => {
-  if (req.session.existingUser) {
-    res.status(200).json({ existingUser: req.session.existingUser });
-  } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
-});
+// app.get('/profile', (req, res) => {
+//   if (req.session.existingUser) {
+//     res.status(200).json({ existingUser: req.session.existingUser });
+//   } else {
+//     res.status(401).json({ message: 'Unauthorized' });
+//   }
+// });
 
 
 export default app;
