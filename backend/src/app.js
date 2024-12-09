@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/cart' , cartRoutes);
 app.use('/api/users', userRoutes);
-
+//comment
 app.get('/profile', (req, res) => {
   if (req.session.existingUser) {
     res.status(200).json({ existingUser: req.session.existingUser });
