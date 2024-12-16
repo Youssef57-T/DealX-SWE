@@ -30,7 +30,7 @@ return (
     <h1>Your Cart : 10 items</h1>
 
     <div className="cart-content">
-    {/* Product List */}
+
     <div className="cart-marketplaces">
         {marketplaces.map((marketplace) => (
         <div className="marketplace" key={marketplace.name}>
@@ -49,7 +49,6 @@ return (
         ))}
     </div>
 
-    {/* Summary */}
     <div className="cart-summary">
         <h3>subtotal : 50 items</h3>
         <p>$ 1500</p>

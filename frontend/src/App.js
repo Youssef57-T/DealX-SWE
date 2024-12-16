@@ -7,11 +7,13 @@ import MainPage from './Main_User_Page';
 import SearchResults from './results_page';
 import Product from './ProductPage';
 import CartPage from './Cart';
+import { UserProvider } from './UserContext';
 import ProfilePage from './ProfilePage';
 
 const App = () => {
 
     return(
+        <UserProvider>
         <BrowserRouter>
             <Routes>
                 <Route path = "/" element={<Home />} />
@@ -23,7 +25,9 @@ const App = () => {
                 <Route path="/Product" element={<Product />} />
                 <Route path="/Profile" element= { <ProfilePage/>}/>
             </Routes>
+        
         </BrowserRouter>
+        </UserProvider>
     );
 }
 

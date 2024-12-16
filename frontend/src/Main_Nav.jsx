@@ -40,7 +40,6 @@ function MainNav() {
                         </li>
                     </ul>
                 </nav>
-                <hr />
             </>
         );
     } 
@@ -76,7 +75,6 @@ function MainNav() {
                         <a ><NavLink to="/profile"><i className="fa fa-user"></i> </NavLink></a>
                     </div>
                 </nav>
-                <hr />
             </>
         );
     }
