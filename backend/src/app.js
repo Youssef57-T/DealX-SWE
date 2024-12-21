@@ -3,6 +3,8 @@ import cors from 'cors';
 import session from 'express-session';
 import {productRoutes, cartRoutes} from './routes/productRoutes.js';
 import {userRoutes} from './routes/userRoutes.js'
+import premiumRoutes from './routes/premiumRoutes.js';
+
 const app = express();
 
 
@@ -29,6 +31,8 @@ app.use(session({
 app.use('/api/products', productRoutes);
 app.use('/api/cart' , cartRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api', premiumRoutes);
+
 
 app.get('/profile', (req, res) => {
   if (req.session.existingUser) {
