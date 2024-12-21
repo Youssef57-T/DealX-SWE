@@ -1,74 +1,76 @@
-import React from 'react'
-import MainNav from "./Main_Nav"
-
-
-
-const marketplaces = [
-{ name: 'Amazon' },
-{ name: 'Walmart' },
-{ name: 'Ebay' },
-{ name: 'AliExpress' },
-{ name: 'Etsy' },
-{ name: 'another' },
-];
-
-const products = [
-{
-name: 'Product 1',
-quantity: 1,
-price: 150,
-image: 'path/to/product-image.jpg', // Replace with actual image path
-},
-];
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import MainNav from './Main_Nav';
 
 const CartPage = () => {
-return (
-    <>
-    <MainNav/>
+const [marketplaces, setMarketplaces] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+const userId = 1; // Replace with actual user_id logic
 
-<div className="cart-page">
-    <h1>Your Cart : 10 items</h1>
+useEffect(() => {
+const fetchCartData = async () => {
+    try {
+    const response = await axios.get(`http:localhost:5000/api/cartpage/${userId}`);
+    setMarketplaces(response.data.marketplaces);
+    } catch (err) {
+    setError('Failed to fetch cart data.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchCartData();
+}, [userId]);
+
+if (loading) return <p>Loading...</p>;
+if (error) return <p>{error}</p>;
+
+return (
+<>
+    <MainNav />
+
+    <div className="cart-page">
+    <h1>Your Cart: {marketplaces.reduce((total, m) => total + m.products.length, 0)} items</h1>
 
     <div className="cart-content">
-
-    <div className="cart-marketplaces">
+        <div className="cart-marketplaces">
         {marketplaces.map((marketplace) => (
-        <div className="marketplace" key={marketplace.name}>
+            <div className="marketplace" key={marketplace.name}>
             <h2>{marketplace.name}</h2>
-            {products.map((product, index) => (
-            <div className="product" key={index}>
-                <img src={product.image} alt={product.name} className="product-image" />
+            {marketplace.products.map((product, index) => (
+                <div className="product" key={index}>
+                <img
+                    src={product.image}
+                    alt={product.name}
+                    className="product-image"
+                />
                 <div className="product-details">
-                <span>{product.name}</span>
-                <span>QTY: {product.quantity}</span>
-                <span>{product.price} $</span>
+                    <span>{product.name}</span>
+                    <span>QTY: {product.quantity}</span>
+                    <span>{product.price} $</span>
                 </div>
-            </div>
+                </div>
             ))}
-        </div>
+            </div>
         ))}
-    </div>
+        </div>
 
-    <div className="cart-summary">
-        <h3>subtotal : 50 items</h3>
-        <p>$ 1500</p>
-        <h3>Est. taxes :</h3>
+        <div className="cart-summary">
+        <h3>Subtotal: {marketplaces.reduce((total, m) => total + m.products.reduce((sum, p) => sum + p.quantity, 0), 0)} items</h3>
+        <p>$ {marketplaces.reduce((total, m) => total + m.products.reduce((sum, p) => sum + p.price * p.quantity, 0), 0).toFixed(2)}</p>
+        <h3>Est. taxes:</h3>
         <p>$ 200</p>
         <hr />
         <h3>Est. total</h3>
         <p>with delivery $100</p>
-        <h2>$ 1900</h2>
+        <h2>$ {(marketplaces.reduce((total, m) => total + m.products.reduce((sum, p) => sum + p.price * p.quantity, 0), 0) + 200 + 100).toFixed(2)}</h2>
         <button className="checkout-btn">Checkout</button>
+        </div>
     </div>
     </div>
-</div>
 </>
 );
 };
 
-
-
-
-
-export default CartPage ;
-
+export default CartPage;

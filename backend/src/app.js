@@ -2,8 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import session from 'express-session';
 import {productRoutes, cartRoutes , searchRoute} from './routes/productRoutes.js';
-import {userRoutes} from './routes/userRoutes.js'
-import {ProfileRouter} from './routes/profileRoutes.js'
+import {userRoutes} from './routes/userRoutes.js';
+import {ProfileRouter} from './routes/profileRoutes.js';
+import { CartPageRouter } from './routes/CartRoutes.js';
 const app = express();
 
 
@@ -39,6 +40,7 @@ app.use('/api/cart' , cartRoutes);
 app.use('/api/profile', ProfileRouter);
 //comment
 app.use('/api/users', userRoutes);
+app.use('/api/cartpage' ,CartPageRouter )
 
 
 export default app;

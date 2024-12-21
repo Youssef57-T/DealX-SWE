@@ -19,13 +19,28 @@ quantity: {
     defaultValue: 1, 
 },
 
+
 }, {
 tableName: 'cart_items',
 timestamps: false, 
 });
 
-export default Cart_items;
+const Cart = sequelize.define('Cart', {
+cart_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+},
+user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+},
+}, {
+tableName: 'cart',
+timestamps: false,
+});
 
+export default { Cart_items, Cart };
 
 
 // // Add an item to the cart
@@ -62,14 +77,14 @@ export default Cart_items;
 //     const itemToRemove = await CartItem.findOne({
 //       where: { userId, itemId},
 //     });
-  
+
 //     if (itemToRemove) {
 //       await itemToRemove.destroy();
 //       return true;
 //     }
 //     return false;
 //   };
-  
+
 
 
 
@@ -100,4 +115,3 @@ export default Cart_items;
 //     tableName: 'cart_items',
 //     timestamps: false, // Assuming no timestamps are needed
 //   });
-  

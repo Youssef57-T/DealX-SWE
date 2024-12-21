@@ -4,6 +4,7 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 
 function Card({ product }) {
+  
   const [inCart, setInCart] = useState(false); 
   const [inWishlist, setInWishlist] = useState(false);
   const navigate = useNavigate();
