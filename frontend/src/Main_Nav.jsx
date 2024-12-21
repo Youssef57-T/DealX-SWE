@@ -28,6 +28,8 @@ function MainNav() {
                     <ul className="nav-links">
                         <li><NavLink to="/"> Home </NavLink> </li>
                         <li><NavLink to="/MainUser"> Products </NavLink></li>
+                        <li><NavLink to="/Reward"> Rewards </NavLink></li>
+
                         <li><a href="#categories">Categories</a></li>
                         <li><a href="#deals">Deals</a></li>
                         <li>

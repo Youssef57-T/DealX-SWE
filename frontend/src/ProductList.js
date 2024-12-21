@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import axios from 'axios';
 import Card from './Card';
 import { motion } from 'framer-motion';
@@ -17,7 +18,7 @@ const ProductList = () => {
     
     try {
       // Fetch the products with the current offset and limit
-      const response = await axios.get(`http://localhost:5000/api/products?page=${Math.floor(offset / limit) + 1} &limit=${limit}`);
+      const response = await axios.get(`http://localhost:5000/api/products?page=${Math.floor(offset / limit) + 1}&limit=${limit}`);
       
       // Append new products to the existing list
       setProducts((prevProducts) => [...prevProducts, ...response.data.products]);
