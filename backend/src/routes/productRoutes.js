@@ -13,5 +13,6 @@ searchRoute.get('/search', searchProducts);
 
 
 cartRoutes.post('/:id', addToCart);
+cartRoutes.put('/:id', addToCart);
 
 export { productRoutes, cartRoutes ,searchRoute };

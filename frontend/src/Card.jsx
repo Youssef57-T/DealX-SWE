@@ -10,21 +10,29 @@ function Card({ product }) {
 
   const handleAddToCart = async () => {
       try {
+        const requestData = {
+          
+          quantity: product.stock_quantity,     
+          cart_id: 123,      
+        };
+
         if (!inCart) {
 
-          const requestData = {
           
-            quantity: product.stock_quantity,     
-            cart_id: 123,      
-          };
-
           await axios.post(`http://localhost:5000/api/cart/${product.product_id}` ,requestData);
           setInCart(true);
+          
           alert('Product added to cart!');
-        } else {
+          
 
-          navigate('/cart');
-        }
+
+          
+        } else {
+      await axios.put(`http://localhost:5000/api/cart/${product.product_id}`, requestData);
+      alert('Product quantity updated in cart!');
+      navigate('/cart');
+    }
+
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
