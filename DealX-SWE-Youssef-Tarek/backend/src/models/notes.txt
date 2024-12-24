@@ -1,0 +1,2 @@
+1-change user-Email as a unique from reward and transaction
+and nbut user id as a unique

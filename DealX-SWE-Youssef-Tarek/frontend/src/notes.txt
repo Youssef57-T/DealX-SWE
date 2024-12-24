@@ -1,0 +1,1 @@
+Call App-RewardSystem file into App.js
