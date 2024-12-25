@@ -29,18 +29,19 @@ const Cart = sequelize.define('Cart', {
 cart_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true,
+   
 },
 user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    primaryKey: true,
 },
 }, {
 tableName: 'cart',
 timestamps: false,
 });
 
-export default { Cart_items, Cart };
+export { Cart_items, Cart };
 
 
 // // Add an item to the cart

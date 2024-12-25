@@ -71,7 +71,7 @@ function MainNav() {
                     </div>
 
                     <div className="nav-icons">
-                        <a href="#cart"><i className="fa fa-shopping-cart"></i></a>
+                        <a><NavLink to = "/Cart" > <i className="fa fa-shopping-cart"></i></NavLink></a>
                         <a ><NavLink to="/profile"><i className="fa fa-user"></i> </NavLink></a>
                     </div>
                 </nav>

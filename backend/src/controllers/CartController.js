@@ -1,18 +1,21 @@
-import Cart_items from '../models/CartModel.js';
-import Cart from '../models/CartModel.js'
-
+import {Cart_items, Cart} from '../models/CartModel.js';
+import Product from '../models/ProductCardModel.js'
 
 export async function addToCart(req, res) {
     try {
+        console.log("this is request "  , req.body);
+
     const { id: product_id } = req.params;
-    const { quantity, cart_id } = req.body;
+    const { stock_quantity  , user_id } = req.body;
 
 
 
     if (!product_id ) {
         return res.status(400).json({ message: 'productId and userId are required' });
     }
-    
+    const returned_cart_id = await Cart.findOne({where : {user_id}});
+    console.log("this cart_id" , returned_cart_id.dataValues.cart_id);
+    const cart_id = returned_cart_id.dataValues.cart_id ; 
     const existingCartItem = await Cart_items.findOne({ where: {product_id } });
     if (existingCartItem) {
 
@@ -22,7 +25,7 @@ export async function addToCart(req, res) {
     const newCartItem = await Cart_items.create({
         cart_id,
         product_id,
-        quantity,
+        quantity: 1 ,
     });
     
     res.status(201).json({
@@ -44,14 +47,31 @@ export async function showCart (req, res) {
 const { userId } = req.params;
 
 // Get active cart for the user
-const cart = await Cart.findAll ({ where: { user_id: userId } });
-console.log(cart)
+const cart = await Cart.findOne({ where: { user_id: userId } });
+console.log("here is cart : " , cart)
 if (!cart) {
     return res.status(404).json({ message: 'No active cart found' });
 }
 
 // Get all items in the cart
-const items = await Cart_items.findAll({ where: { cart_id: cart.id } });
+console.log("haiiii" , cart.cart_id)
+// Get all product_ids in the cart
+const cartItems = await Cart_items.findAll({ where: { cart_id: cart.cart_id } });
+
+if (!cartItems || cartItems.length === 0) {
+    return res.status(404).json({ message: 'No items found in the cart' });
+}
+
+// Extract product_ids from cartItems
+const productIds = cartItems.map(item => item.product_id);
+
+// Fetch product details from the Products table
+const products = await Product.findAll({ where: { product_id: productIds } });
+
+if (!products || products.length === 0) {
+    return res.status(404).json({ message: 'No product details found' });
+}
+
 
 // Categorize items by platform
 // const categorizedItems = items.reduce((acc, item) => {
@@ -61,14 +81,8 @@ const items = await Cart_items.findAll({ where: { cart_id: cart.id } });
 // }, {});
 
 res.status(200).json({
-    user_id: cart.user_id,
-    items: categorizedItems,
-    total_items: cart.total_items,
-    total_price: cart.total_price,
-    created_at: cart.created_at,
-    updated_at: cart.updated_at,
-    status: cart.status,
-    checkout_details: cart.checkout_details,
+    items: products,
+
 });
 } catch (err) {
 console.error(err);

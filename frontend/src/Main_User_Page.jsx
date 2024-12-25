@@ -1,11 +1,20 @@
 import MainNav from "./Main_Nav"
 import ProductList from "./ProductList.js"
-import { useLocation } from 'react-router-dom';
-
+import { useUser} from './UserContext.js'
+import { useNavigate } from 'react-router-dom';
 function MainPage() { 
+  const navigate = useNavigate();
 
-  const location = useLocation();
-  // const { user } = location.state ;
+  // const location = useLocation();
+  const {user} = useUser(); // Access user data from navigation state
+  console.log("this is user from main" , user)
+
+  
+  if (!user) {
+    navigate("/login") 
+  return "Redirecting" 
+
+}  // const { user } = location.state ;
   // console.log(location)
   // console.log("now ", user.username);
     return (
@@ -19,7 +28,8 @@ function MainPage() {
           
             <div>
               <>
-              <h1>Hello to DealX </h1>
+              <h1> Hello {user.data.username} <h1>
+                </h1>Welcome to DealX </h1>
               </>
               <h1>Amazon products</h1>          
             </div> 

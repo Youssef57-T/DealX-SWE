@@ -5,6 +5,10 @@ import {productRoutes, cartRoutes , searchRoute} from './routes/productRoutes.js
 import {userRoutes} from './routes/userRoutes.js';
 import {ProfileRouter} from './routes/profileRoutes.js';
 import { CartPageRouter } from './routes/CartRoutes.js';
+import Stripe from 'stripe'; // Fixes typo in Stripe import
+
+const stripe = new Stripe('your-secret-key'); // Initialize Stripe with your secret key
+
 const app = express();
 
 
@@ -42,5 +46,23 @@ app.use('/api/profile', ProfileRouter);
 app.use('/api/users', userRoutes);
 app.use('/api/cartpage' ,CartPageRouter )
 
+
+app.post('/create-payment-intent', async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 2000, // Total amount (in cents)
+      currency: 'usd',
+      payment_method: req.body.payment_method,
+      confirmation_method: 'manual',
+      confirm: true,
+    });
+
+    res.send({
+      client_secret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
 
 export default app;

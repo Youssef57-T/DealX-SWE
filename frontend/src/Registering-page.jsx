@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useUser } from './UserContext'; // Import the context
+import { useUser } from './UserContext';
 import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    const { login } = useUser(); // Access login function from context
+    const { login } = useUser();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(''); // For displaying error messages
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,57 +18,53 @@ const LoginForm = () => {
                 email,
                 password_hash: password,
             });
-            if (response.status === 200) {
-                navigate('/mainUser', { state: { user: response.data } });
-            }
-
-            if (response.data.token) {
+            if (response.data) {
+                console.log("now from login  : ",response.data)
                 login(response.data);
+                console.log("Navigating with user from login:", response.data);
                 
-                localStorage.setItem('token', response.data.token);
-                
-                // Redirect the user to the profile page or dashboard
-            } else {
-                setError('No token received. Please try again.');
+                navigate('/mainUser');
             }
-        } catch (error) {
-            console.error('Login failed:', error);
+        } catch (err) {
+            console.error('Login failed:', err);
             setError('Login failed. Please check your credentials.');
         }
     };
-return (
-    <div className="login-container">
-        <form className="login-form" onSubmit={handleSubmit}>
-            <h2>Login</h2>
-            <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <button type="submit" className="login-button">Login</button>
-            <p className="signup-link">
-                Don't have an account? <Link to ="/signup">Sign Up</Link>
-            </p>
-        </form>
-    </div>
-); 
+
+    return (
+        <div className="login-container">
+            <form className="login-form" onSubmit={handleSubmit}>
+                <h2>Login</h2>
+                {error && <p className="error-message">{error}</p>}
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button type="submit" className="login-button">Login</button>
+                <p className="signup-link">
+                    Don't have an account? <Link to="/signup">Sign Up</Link>
+                </p>
+            </form>
+        </div>
+    );
 };
 
 

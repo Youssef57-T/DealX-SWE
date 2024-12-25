@@ -4,40 +4,45 @@ import { useUser } from './UserContext'; // Import the context
 import axios from 'axios';
 
 const ProfilePage = () => {
-    const { user } = useUser(); // Access user data from context (this should contain logged-in user data)
+    
     const [profile, setProfile] = useState(null);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({});
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    console.log(user)
+    const {user, logout} = useUser(); // Access user data from navigation state
+    console.log("this is user from main" , user)
+    if (!user) {
+        return <p>No user data available. Please log in or sign up.</p>;
+    }
+  
     // Fetch profile data on component mount
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-                // If the user data exists in the context, skip the request.
-                if (user) {
-                    setProfile(user); 
-                    setFormData(user); 
-                } else {
-                    const response = await axios.get('http://localhost:5000/api/profile', {
-                        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-                    });
-                    setProfile(response.data.user); // Set profile data
-                    setFormData(response.data.user); // Set form data for editing
-                }
-            } catch (err) {
-                if (err.response?.status === 401) {
-                    setError('Unauthorized: Please log in.');
-                    navigate('/login');
-                } else {
-                    setError('An error occurred while fetching profile data.');
-                }
-            }
-        };
+    // useEffect(() => {
+    //     const fetchProfile = async () => {
+    //         try {
+    //             // If the user data exists in the context, skip the request.
+    //             if (user) {
+    //                 setProfile(user); 
+    //                 setFormData(user); 
+    //             } else {
+    //                 const response = await axios.get('http://localhost:5000/api/profile', {
+    //                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    //                 });
+    //                 setProfile(response.data.user); // Set profile data
+    //                 setFormData(response.data.user); // Set form data for editing
+    //             }
+    //         } catch (err) {
+    //             if (err.response?.status === 401) {
+    //                 setError('Unauthorized: Please log in.');
+    //                 navigate('/login');
+    //             } else {
+    //                 setError('An error occurred while fetching profile data.');
+    //             }
+    //         }
+    //     };
 
-        fetchProfile();
-    }, [navigate, user]); // Runs whenever navigate or user context changes
+    //     fetchProfile();
+   // }, [navigate, user]); // Runs whenever navigate or user context changes
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -74,7 +79,11 @@ const ProfilePage = () => {
             }
         }
     };
-
+    const Logout = async() => { 
+        logout();
+        alert("you are logged out") ; 
+        navigate("/");
+    }
     if (error) return <div>{error}</div>; // Show any error messages
 
     return (
@@ -83,17 +92,20 @@ const ProfilePage = () => {
             <div className="profile-card">
                 {!editMode ? (
                     <div className="profile-view">
-                        <p><strong>Username:</strong> {profile?.username}</p>
-                        <p><strong>Email:</strong> {profile?.email}</p>
-                        <p><strong>Full Name:</strong> {profile?.full_name}</p>
-                        <p><strong>Address:</strong> {profile?.address}</p>
-                        <p><strong>Phone Number:</strong> {profile?.phone_number}</p>
+                        <p><strong>Username:</strong> {user.data.username}</p>
+                        <p><strong>Email:</strong> {user.data.email}</p>
+                        <p><strong>Full Name:</strong> {user.data.full_name}</p>
+                        <p><strong>Address:</strong> {user.data.address}</p>
+                        <p><strong>Phone Number:</strong> {user.data.phone_number}</p>
                         <div className="button-group">
                             <button className="btn edit-btn" onClick={() => setEditMode(true)}>
                                 Edit Profile
                             </button>
                             <button className="btn delete-btn" onClick={handleDeleteProfile}>
                                 Delete Profile
+                            </button>
+                            <button className="btn cancel-btn" onClick={() => Logout(false)}>
+                                Logout
                             </button>
                         </div>
                     </div>
@@ -145,6 +157,7 @@ const ProfilePage = () => {
                             <button className="btn cancel-btn" onClick={() => setEditMode(false)}>
                                 Cancel
                             </button>
+                           
                         </div>
                     </div>
                 )}

@@ -19,6 +19,9 @@ const Product = sequelize.define('products', {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
+    stock_quantity: { 
+        type : DataTypes.INTEGER
+    },
     image_url: {
         type: DataTypes.STRING,
         allowNull: false,

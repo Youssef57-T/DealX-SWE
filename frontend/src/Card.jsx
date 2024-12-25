@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useUser } from './UserContext';
+
 
 function Card({ product }) {
-  
+
   const [inCart, setInCart] = useState(false); 
   const [inWishlist, setInWishlist] = useState(false);
   const navigate = useNavigate();
-
+  const {user} = useUser();
   const handleAddToCart = async () => {
       try {
+        console.log("this is quantity" , product.stock_quantity)
         const requestData = {
           
-          quantity: product.stock_quantity,     
-          cart_id: 123,      
+          stock_quantity: product.stock_quantity,     
+          user_id: user.data.user_id,      
         };
 
         if (!inCart) {
@@ -76,6 +79,8 @@ function Card({ product }) {
         <p className="product-description">{product.description}</p>
         <div className="card-footer">
           <span className="product-price">${product.price}</span>
+          <span className="product-price">${product.stock_quantity}</span>
+
           <button
             className="add-to-cart"
             onClick={(e) => {
