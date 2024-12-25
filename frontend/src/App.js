@@ -8,6 +8,7 @@ import SearchResults from './results_page';
 import Product from './ProductPage';
 import CartPage from './Cart';
 import ProfilePage from './ProfilePage';
+import Premium from './Premium'; 
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
                 <Route path="/Search" element={<SearchResults />} />
                 <Route path="/Product" element={<Product />} />
                 <Route path="/Profile" element= { <ProfilePage/>}/>
+                <Route path="/Premium" element={<Premium />} />
             </Routes>
         
         </BrowserRouter>

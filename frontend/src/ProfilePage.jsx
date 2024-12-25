@@ -86,6 +86,7 @@ const ProfilePage = () => {
     }
     if (error) return <div>{error}</div>; // Show any error messages
 
+
     return (
         <div className="profile-container">
             <h1 className="profile-heading">My Profile</h1>

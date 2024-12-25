@@ -13,6 +13,7 @@ const app = express();
 
 
 
+
 const corsOptions = {
   origin: 'http://localhost:3000', // Allow only requests from your React app
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
@@ -23,6 +24,7 @@ app.use(cors(corsOptions));
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
 
 
 

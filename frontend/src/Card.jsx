@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useUser } from './UserContext';
 
 
+
 function Card({ product }) {
 
   const [inCart, setInCart] = useState(false); 
@@ -62,6 +63,7 @@ function Card({ product }) {
   };
 
   return (
+
     <motion.div 
     className="product-card" onClick={() => handleCardClick(product)}
     initial={{ opacity: 0, y: 50 }}
@@ -90,11 +92,13 @@ function Card({ product }) {
           > <div className="fa fa-shopping-cart"></div>
          </button>
           <button
+
             className="add-to-cart"
             onClick={(e) => {
               e.stopPropagation(); // Prevent triggering card click
               handleAddToWishlist();
             }}
+
           ><div className="fa-solid fa-heart-circle-plus"></div>
           </button>
         </div>

@@ -28,7 +28,7 @@ export const getUser = async (req, res) => {
       //   full_name: existingUser.full_name,
       //   type: existingUser.type,
       // };
-      
+
       console.log('User found:', user);
       
       return res.status(200).json({ message: 'User exists', data: user });

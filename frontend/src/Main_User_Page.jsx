@@ -2,6 +2,8 @@ import MainNav from "./Main_Nav"
 import ProductList from "./ProductList.js"
 import { useUser} from './UserContext.js'
 import { useNavigate } from 'react-router-dom';
+
+
 function MainPage() { 
   const navigate = useNavigate();
 
@@ -19,11 +21,7 @@ function MainPage() {
   // console.log("now ", user.username);
     return (
         <>
-          
           <MainNav/>
-          <div >
-          
-          
           <div> 
           
             <div>
@@ -41,13 +39,13 @@ function MainPage() {
           </div>
           <div>
 
-            <h1>Etsy products</h1>
-            <ProductList/>
-          </div>
-          </div>
-      
-        </>
-    );
+        <div className="container">
+          <h1 >Etsy products</h1>
+          <ProductList />
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default MainPage
+export default MainPage;

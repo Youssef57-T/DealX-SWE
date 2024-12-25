@@ -20,6 +20,7 @@ const CartPageContent = () => {
 
   const userId = user?.data?.user_id;
 
+
   useEffect(() => {
     if (!userId) return;
 
@@ -91,6 +92,7 @@ const CartPageContent = () => {
         <h1>Your Cart: {totalItems} items</h1>
         <div className="cart-content">
           <div className="cart-products">
+
             {products.map((product, index) => (
               <div className="product" key={index}>
                 <img src={product.image} alt={product.name} className="product-image" />
@@ -138,6 +140,7 @@ const CartPageContent = () => {
       </div>
     </>
   );
+
 };
 
 const CartPage = () => (
