@@ -20,12 +20,12 @@ try {
 };
 
 const handleSearchChange = (event) => {
-setSearchQuery(event.target.value); 
+setSearchQuery(event.target.value); // Update search query
 };
 
 const handleSearchSubmit = (event) => {
-event.preventDefault();
-fetchFilteredProducts(); 
+event.preventDefault(); // Prevent page reload
+fetchFilteredProducts(); // Fetch products based on the search query
 };
 
 return (
