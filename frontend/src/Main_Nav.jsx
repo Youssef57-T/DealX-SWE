@@ -28,6 +28,8 @@ function MainNav() {
                     <ul className="nav-links">
                         <li><NavLink to="/"> Home </NavLink> </li>
                         <li><NavLink to="/MainUser"> Products </NavLink></li>
+                        <li><NavLink to="/Reward"> Rewards </NavLink></li>
+
                         <li><a href="#categories">Categories</a></li>
                         <li><a href="#deals">Deals</a></li>
                         <li>
@@ -40,7 +42,6 @@ function MainNav() {
                         </li>
                     </ul>
                 </nav>
-                <hr />
             </>
         );
     } 
@@ -72,11 +73,10 @@ function MainNav() {
                     </div>
 
                     <div className="nav-icons">
-                        <a href="#cart"><i className="fa fa-shopping-cart"></i></a>
+                        <a><NavLink to = "/Cart" > <i className="fa fa-shopping-cart"></i></NavLink></a>
                         <a ><NavLink to="/profile"><i className="fa fa-user"></i> </NavLink></a>
                     </div>
                 </nav>
-                <hr />
             </>
         );
     }

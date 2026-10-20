@@ -1,62 +1,71 @@
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import { useUser } from './UserContext';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
-const navigate = useNavigate();
-const [email , setEmail] = useState('') ;
-const [password , setPassword] = useState('')
+    const navigate = useNavigate();
+    const { login } = useUser();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-const handleSubmit = async (e) => {
-e.preventDefault();
-try {
-    const response = await axios.post('http://localhost:5000/api/users', {
-    email,
-    password_hash: password,
-    });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:5000/api/users', {
+                email,
+                password_hash: password,
+            });
+            if (response.data) {
+                console.log("now from login  : ",response.data)
+                login(response.data);
+                console.log("Navigating with user from login:", response.data);
 
-    if (response.status === 200) {
-        navigate('/mainUser', { state: { user: response.data } });
-    }
-} catch (error) {
-    console.error('Login failed:', error);
-}
-};
+                navigate('/mainUser');
+            }
+        } catch (err) {
+            console.error('Login failed:', err);
+            setError('Login failed. Please check your credentials.');
+        }
+    };
 
-return (
-    <div className="login-container">
-        <form className="login-form" onSubmit={handleSubmit}>
-            <h2>Login</h2>
-            <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <button type="submit" className="login-button">Login</button>
-            <p className="signup-link">
-                Don't have an account? <Link to ="/signup">Sign Up</Link>
-            </p>
-        </form>
-    </div>
-); 
+
+    return (
+        <div className="login-container">
+            <form className="login-form" onSubmit={handleSubmit}>
+                <h2>Login</h2>
+                {error && <p className="error-message">{error}</p>}
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button type="submit" className="login-button">Login</button>
+                <p className="signup-link">
+                    Don't have an account? <Link to="/signup">Sign Up</Link>
+                </p>
+            </form>
+        </div>
+    );
 };
 
 

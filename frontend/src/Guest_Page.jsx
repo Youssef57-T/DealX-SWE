@@ -42,14 +42,14 @@ function Guest_Page(){
         </div>
 
         <div>
-            <p> Deals By Amazon</p>
+            <h1> Deals By Amazon</h1>
             <div>
                 <ProductList/>
             </div>
         </div>
 
         <div>
-            <p> Deals By Walmart</p>
+            <h1> Deals By Walmart</h1>
             <div>
             <ProductList/>
 
@@ -57,7 +57,7 @@ function Guest_Page(){
             </div>
         </div>
         <div>
-            <p> Deals By Ebay</p>
+            <h1> Deals By Ebay</h1>
             <div>
             <ProductList/>
 
